@@ -1,17 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:x_exchange/core/route_paths.dart';
+import 'package:x_exchange/logic/auth/auth_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
       ),
-      body: Container(),
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            TextFormField(),
+            TextFormField(),
+            ElevatedButton(
+              onPressed: () => context.read<AuthCubit>().login(),
+              child: const Text('Login'),
+            ),
+            TextButton(
+              onPressed: () => context.push(RoutePaths.registrationScreen),
+              child: const Text('Don\'t have an account? Sign up!'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
