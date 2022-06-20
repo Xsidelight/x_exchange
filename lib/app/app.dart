@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-
-import '../presentation/screens/home_screen.dart';
+import 'package:x_exchange/core/app_router.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  App({Key? key}) : super(key: key);
+
+  final router = AppRouter().goRouter;
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeScreen(),
+    return MaterialApp.router(
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+      routeInformationProvider: router.routeInformationProvider,
     );
   }
 }
