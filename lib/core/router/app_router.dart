@@ -36,7 +36,7 @@ class _HomeRouteBuilder extends StatelessWidget {
       builder: (context, state) => state.when(
         initial: () => LoginScreen(),
         authSuccessful: () => HomeScreen(),
-        authFailed: () => LoginScreen(),
+        authFailed: (_) => LoginScreen(),
       ),
     );
   }

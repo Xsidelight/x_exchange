@@ -9,18 +9,22 @@ part 'auth_state.dart';
 part 'auth_cubit.freezed.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(const AuthState.initial());
+  AuthCubit() : super(const AuthState.initial()) {
+    autoLogin();
+  }
 
-  bool login({required String email, required String password}) {
-    var box = Hive.box(HiveConstants.userCredBox);
-    User savedUser = box.get(HiveConstants.userCredentials);
+  var box = Hive.box(HiveConstants.userCredBox);
 
-    if (email == savedUser.email && password == savedUser.password) {
-      emit(const AuthState.authSuccessful());
-      return true;
+  void login({required String email, required String password}) {
+    User? savedUser = box.get(HiveConstants.userCredentials);
+
+    if (savedUser == null)  {
+
     }
 
-    return false;
+    if (email == savedUser!.email && password == savedUser.password) {
+      emit(const AuthState.authSuccessful());
+    }
   }
 
   void registration({
@@ -34,18 +38,20 @@ class AuthCubit extends Cubit<AuthState> {
       password: userPassword,
       createdAt: DateTime.now(),
     );
-    var box = Hive.box(HiveConstants.userCredBox);
     box.put(HiveConstants.userCredentials, user);
   }
 
   void autoLogin() {
-    var box = Hive.box(HiveConstants.userCredBox);
     var savedUser = box.get(HiveConstants.userCredentials);
 
     if (savedUser == null) {
-      emit(const AuthState.authFailed());
+      emit(const AuthState.authFailed(message: 'No user found'));
     }
 
     emit(const AuthState.authSuccessful());
+  }
+
+  void logout() {
+    box.clear();
   }
 }

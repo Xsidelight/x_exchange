@@ -10,7 +10,9 @@ part 'coins_cubit.freezed.dart';
 class CoinsCubit extends Cubit<CoinsState> {
   final CoinsRepository coinsRepository;
 
-  CoinsCubit({required this.coinsRepository}) : super(const CoinsState.initial());
+  CoinsCubit({required this.coinsRepository}) : super(const CoinsState.initial()) {
+    loadCoins();
+  }
 
   void loadCoins() async {
     emit(const CoinsState.loading());

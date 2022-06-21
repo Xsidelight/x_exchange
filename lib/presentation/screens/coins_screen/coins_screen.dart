@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:x_exchange/data/repository/coins_repository.dart';
 import 'package:x_exchange/presentation/screens/coins_screen/coins_cubit/cubit/coins_cubit.dart';
 
 class CoinsScreen extends StatelessWidget {
@@ -10,33 +7,50 @@ class CoinsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: BlocProvider(
-        create: (context) => CoinsCubit(coinsRepository: CoinsRepository()),
-        child: BlocBuilder<CoinsCubit, CoinsState>(
-          bloc: context.read<CoinsCubit>()..loadCoins(),
-          builder: (context, state) {
-            return state.when(
-                initial: () => Container(),
-                loading: () => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                loaded: (coinList) => ListView.builder(
-                      itemBuilder: (context, index) => ListTile(
-                        title: Text(coinList[index].name),
-                        subtitle: Text(coinList[index].type),
-                        trailing: CircleAvatar(
-                          child: Text(
-                            coinList[index].value.toString(),
-                          ),
-                        ),
-                      ),
-                    ),
-                error: () => Container());
+    return BlocBuilder<CoinsCubit, CoinsState>(
+      builder: (context, state) {
+        return state.when(
+          initial: () {
+            return Container();
           },
-        ),
-      ),
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          loaded: (coinList) {
+            return ListView.builder(
+              itemCount: coinList.length,
+              itemBuilder: (context, index) => Card(
+                child: ListTile(
+                  title: Text(coinList[index].symbol!),
+                  trailing: SizedBox(
+                    width: 100,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        double.parse(coinList[index].priceChangePercent!) < 0
+                            ? const Icon(
+                                Icons.arrow_downward,
+                                color: Colors.red,
+                              )
+                            : const Icon(
+                                Icons.arrow_upward,
+                                color: Colors.green,
+                              ),
+                        Text(
+                          coinList[index].priceChangePercent!,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+          error: () => const Center(
+            child: Text('Ops! Something went wrong!'),
+          ),
+        );
+      },
     );
   }
 }

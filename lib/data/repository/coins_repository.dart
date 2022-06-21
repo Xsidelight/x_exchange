@@ -8,7 +8,7 @@ class CoinsRepository {
   Future<List<Coin>> getCoins() async {
     var coinList = <Coin>[];
     try {
-      var response = await _dio.get('https://api.coingecko.com/api/v3/exchange_rates');
+      var response = await _dio.get('https://api2.binance.com/api/v3/ticker/24hr');
       response.data.forEach((json) {
         var coin = Coin.fromJson(json);
         coinList.add(coin);

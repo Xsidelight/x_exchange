@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:x_exchange/core/router/route_paths.dart';
+import 'package:x_exchange/presentation/screens/auth_screens/auth/cubit/auth_cubit.dart';
 import 'package:x_exchange/presentation/screens/coins_screen/coins_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,8 +17,17 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<AuthCubit>().logout();
+              context.go(RoutePaths.loginScreen);
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
-      body: Container(),
+      body: pages[0],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
