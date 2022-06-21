@@ -4,9 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:x_exchange/core/constants.dart';
 import 'package:x_exchange/core/router/route_paths.dart';
 import 'package:x_exchange/logic/bottom_navigation/cubit/bottom_navigation_cubit.dart';
-import 'package:x_exchange/presentation/screens/auth_screens/auth/cubit/auth_cubit.dart';
 import 'package:x_exchange/presentation/screens/coins_screen/coins_screen.dart';
 import 'package:x_exchange/presentation/screens/user_screen/user_screen.dart';
+
+import '../../../logic/auth/cubit/auth_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);

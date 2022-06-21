@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:x_exchange/core/constants.dart';
-import 'package:x_exchange/data/models/user.dart';
 
 import 'app/app.dart';
+import 'core/constants.dart';
+import 'data/models/user.dart';
 
 void main() async {
   await Hive.initFlutter();

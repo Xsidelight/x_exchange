@@ -1,8 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
-
-import '../../../../../core/constants.dart';
+import 'package:x_exchange/data/local_repository/hive_storage.dart';
 import '../../../../../data/models/user.dart';
 
 part 'auth_state.dart';
@@ -13,10 +11,10 @@ class AuthCubit extends Cubit<AuthState> {
     autoLogin();
   }
 
-  var box = Hive.box(HiveConstants.userCredBox);
+  final _hiveStorage = HiveStorage();
 
   void login({required String email, required String password}) {
-    User? savedUser = box.get(HiveConstants.userCredentials);
+    User? savedUser = _hiveStorage.getUserCredentials();
 
     if (savedUser == null) {
       emit(const AuthState.authFailed(message: 'Failed To Login!'));
@@ -40,11 +38,11 @@ class AuthCubit extends Cubit<AuthState> {
       password: userPassword,
       createdAt: DateTime.now(),
     );
-    box.put(HiveConstants.userCredentials, user);
+    _hiveStorage.putUserCredentials(user);
   }
 
   void autoLogin() {
-    var savedUser = box.get(HiveConstants.userCredentials);
+    var savedUser = _hiveStorage.getUserCredentials();
 
     if (savedUser == null) {
       emit(const AuthState.authFailed(message: 'No user found'));
@@ -54,6 +52,6 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void logout() {
-    box.clear();
+    _hiveStorage.clearBox();
   }
 }
