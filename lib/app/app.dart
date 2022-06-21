@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../core/router/app_router.dart';
 import '../data/repository/coins_repository.dart';
+import '../logic/bottom_navigation/cubit/bottom_navigation_cubit.dart';
 import '../presentation/screens/auth_screens/auth/cubit/auth_cubit.dart';
 import '../presentation/screens/coins_screen/coins_cubit/cubit/coins_cubit.dart';
 
@@ -20,6 +21,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CoinsCubit(coinsRepository: CoinsRepository()),
+        ),
+        BlocProvider(
+          create: (context) => BottomNavigationCubit(),
         )
       ],
       child: MaterialApp.router(

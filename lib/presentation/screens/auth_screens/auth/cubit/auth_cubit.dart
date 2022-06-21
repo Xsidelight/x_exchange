@@ -18,11 +18,11 @@ class AuthCubit extends Cubit<AuthState> {
   void login({required String email, required String password}) {
     User? savedUser = box.get(HiveConstants.userCredentials);
 
-    if (savedUser == null)  {
-
+    if (savedUser == null) {
+      return;
     }
 
-    if (email == savedUser!.email && password == savedUser.password) {
+    if (email == savedUser.email && password == savedUser.password) {
       emit(const AuthState.authSuccessful());
     }
   }
@@ -46,9 +46,9 @@ class AuthCubit extends Cubit<AuthState> {
 
     if (savedUser == null) {
       emit(const AuthState.authFailed(message: 'No user found'));
+    } else {
+      emit(const AuthState.authSuccessful());
     }
-
-    emit(const AuthState.authSuccessful());
   }
 
   void logout() {
