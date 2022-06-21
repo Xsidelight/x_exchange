@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:x_exchange/core/route_paths.dart';
+import 'package:x_exchange/logic/auth/auth_cubit.dart';
 
 class RegistrationScreen extends StatelessWidget {
   RegistrationScreen({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
+
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +24,7 @@ class RegistrationScreen extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
+                controller: _nameController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your name';
@@ -26,6 +33,7 @@ class RegistrationScreen extends StatelessWidget {
                 },
               ),
               TextFormField(
+                controller: _emailController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter valid email';
@@ -34,6 +42,7 @@ class RegistrationScreen extends StatelessWidget {
                 },
               ),
               TextFormField(
+                controller: _passwordController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your password';
@@ -47,6 +56,11 @@ class RegistrationScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
+                    context.read<AuthCubit>().registration(
+                          userName: _nameController.text.trim(),
+                          userEmail: _emailController.text.trim(),
+                          userPassword: _passwordController.text.trim(),
+                        );
                     context.go(RoutePaths.loginScreen);
                   }
                 },

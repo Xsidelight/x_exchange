@@ -8,6 +8,9 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,10 +21,33 @@ class LoginScreen extends StatelessWidget {
         key: _formKey,
         child: Column(
           children: [
-            TextFormField(),
-            TextFormField(),
+            TextFormField(
+              controller: _emailController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter valid email';
+                }
+                return null;
+              },
+            ),
+            TextFormField(
+              controller: _passwordController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your password';
+                }
+                return null;
+              },
+            ),
             ElevatedButton(
-              onPressed: () => context.read<AuthCubit>().login(),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  context.read<AuthCubit>().login(
+                        email: _emailController.text.trim(),
+                        password: _passwordController.text.trim(),
+                      );
+                }
+              },
               child: const Text('Login'),
             ),
             TextButton(

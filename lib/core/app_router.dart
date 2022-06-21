@@ -11,6 +11,7 @@ class AppRouter {
     routes: [
       GoRoute(
         path: RoutePaths.homeScreen,
+        //TODO: extract
         builder: (context, _) => BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) => state.when(
             initial: () => LoginScreen(),
