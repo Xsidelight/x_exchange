@@ -17,29 +17,32 @@ class CoinsScreen extends StatelessWidget {
             child: CircularProgressIndicator(),
           ),
           loaded: (coinList) {
-            return ListView.builder(
-              itemCount: coinList.length,
-              itemBuilder: (context, index) => Card(
-                child: ListTile(
-                  title: Text(coinList[index].symbol!),
-                  trailing: SizedBox(
-                    width: 100,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        double.parse(coinList[index].priceChangePercent!) < 0
-                            ? const Icon(
-                                Icons.arrow_downward,
-                                color: Colors.red,
-                              )
-                            : const Icon(
-                                Icons.arrow_upward,
-                                color: Colors.green,
-                              ),
-                        Text(
-                          coinList[index].priceChangePercent!,
-                        ),
-                      ],
+            return RefreshIndicator(
+              onRefresh: () => context.read<CoinsCubit>().loadCoins(),
+              child: ListView.builder(
+                itemCount: coinList.length,
+                itemBuilder: (context, index) => Card(
+                  child: ListTile(
+                    title: Text(coinList[index].symbol!),
+                    trailing: SizedBox(
+                      width: 100,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          double.parse(coinList[index].priceChangePercent!) < 0
+                              ? const Icon(
+                                  Icons.arrow_downward,
+                                  color: Colors.red,
+                                )
+                              : const Icon(
+                                  Icons.arrow_upward,
+                                  color: Colors.green,
+                                ),
+                          Text(
+                            coinList[index].priceChangePercent!,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

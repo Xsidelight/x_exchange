@@ -24,7 +24,14 @@ class RegistrationScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              const SizedBox(
+                height: 10,
+              ),
               TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter your name',
+                ),
                 controller: _nameController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -33,7 +40,14 @@ class RegistrationScreen extends StatelessWidget {
                   return null;
                 },
               ),
+              const SizedBox(
+                height: 10,
+              ),
               TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter your email',
+                ),
                 controller: _emailController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -42,7 +56,14 @@ class RegistrationScreen extends StatelessWidget {
                   return null;
                 },
               ),
+              const SizedBox(
+                height: 10,
+              ),
               TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter your password',
+                ),
                 controller: _passwordController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {

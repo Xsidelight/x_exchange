@@ -19,11 +19,13 @@ class AuthCubit extends Cubit<AuthState> {
     User? savedUser = box.get(HiveConstants.userCredentials);
 
     if (savedUser == null) {
-      return;
+      emit(const AuthState.authFailed(message: 'Failed To Login!'));
     }
 
-    if (email == savedUser.email && password == savedUser.password) {
+    if (email == savedUser!.email && password == savedUser.password) {
       emit(const AuthState.authSuccessful());
+    } else {
+      emit(const AuthState.authFailed(message: 'Failed To Login!'));
     }
   }
 
