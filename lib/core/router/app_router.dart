@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:x_exchange/logic/auth/auth.dart';
 
+import '../../presentation/screens/auth_screens/auth/cubit/auth_cubit.dart';
 import '../../presentation/screens/screens.dart';
 import 'route_paths.dart';
 
@@ -35,7 +35,7 @@ class _HomeRouteBuilder extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) => state.when(
         initial: () => LoginScreen(),
-        authSuccessful: () => const HomeScreen(),
+        authSuccessful: () => HomeScreen(),
         authFailed: () => LoginScreen(),
       ),
     );

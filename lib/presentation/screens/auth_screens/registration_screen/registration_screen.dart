@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:x_exchange/logic/auth/auth_cubit.dart';
 
-import '../../../core/router/route_paths.dart';
+import '../../../../core/router/route_paths.dart';
+import '../auth/cubit/auth_cubit.dart';
 
 class RegistrationScreen extends StatelessWidget {
   RegistrationScreen({Key? key}) : super(key: key);

@@ -1,20 +1,26 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:x_exchange/core/constants.dart';
-import 'package:x_exchange/data/models/user.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 
-import 'auth_state.dart';
+import '../../../../../core/constants.dart';
+import '../../../../../data/models/user.dart';
+
+part 'auth_state.dart';
+part 'auth_cubit.freezed.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(const AuthState.initial());
 
-  void login({required String email, required String password}) {
+  bool login({required String email, required String password}) {
     var box = Hive.box(HiveConstants.userCredBox);
     User savedUser = box.get(HiveConstants.userCredentials);
 
     if (email == savedUser.email && password == savedUser.password) {
       emit(const AuthState.authSuccessful());
+      return true;
     }
+
+    return false;
   }
 
   void registration({
