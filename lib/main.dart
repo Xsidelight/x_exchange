@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:x_exchange/core/constants.dart';
 import 'package:x_exchange/data/models/user.dart';
 
 import 'app/app.dart';
@@ -12,18 +13,18 @@ void main() async {
   Hive.registerAdapter(UserAdapter());
   const secureStorage = FlutterSecureStorage();
 
-  final encryptKey = await secureStorage.read(key: 'key');
+  final encryptKey = await secureStorage.read(key: HiveConstants.userBoxKey);
   if (encryptKey == null) {
     final key = Hive.generateSecureKey();
     await secureStorage.write(
-      key: 'key',
+      key: HiveConstants.userBoxKey,
       value: base64UrlEncode(key),
     );
   }
-  final key = await secureStorage.read(key: 'key');
+  final key = await secureStorage.read(key: HiveConstants.userBoxKey);
   final encryptionKey = base64Url.decode(key!);
 
-  await Hive.openBox('userCredBox', encryptionCipher: HiveAesCipher(encryptionKey));
+  await Hive.openBox(HiveConstants.userCredBox, encryptionCipher: HiveAesCipher(encryptionKey));
 
   runApp(App());
 }

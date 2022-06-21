@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:x_exchange/core/route_paths.dart';
 import 'package:x_exchange/logic/auth/auth_cubit.dart';
+
+import '../../../core/router/route_paths.dart';
+
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
