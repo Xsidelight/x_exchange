@@ -27,7 +27,7 @@ Personal Flutter project for the testing assignment for M10.
 
 ## Local Persistence 
 
-- (hive)[https://pub.dev/packages/hive] is used to store the user credentials in the encrypted box. We also have `hive_storage.dart`, which serves as API for interacting with it.
+- [hive](https://pub.dev/packages/hive) is used to store the user credentials in the encrypted box. We also have `hive_storage.dart`, which serves as API for interacting with it.
 
 ## Remote data
 
