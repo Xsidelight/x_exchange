@@ -5,8 +5,8 @@ import 'package:x_exchange/data/local_repository/hive_repository_impl.dart';
 import 'package:x_exchange/data/repository/coins_repository_impl.dart';
 import 'package:x_exchange/domain/router/app_router.dart';
 import 'package:x_exchange/presentation/auth_screens/cubit/auth_cubit.dart';
-import 'package:x_exchange/presentation/blocs/bottom_navigation/cubit/bottom_navigation_cubit.dart';
 import 'package:x_exchange/presentation/coins_screen/cubit/coins_cubit.dart';
+import 'package:x_exchange/presentation/home_screen/cubit/bottom_navigation_cubit.dart';
 
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
