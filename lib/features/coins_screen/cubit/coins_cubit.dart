@@ -17,7 +17,7 @@ class CoinsCubit extends Cubit<CoinsState> {
   Future<void> loadCoins() async {
     emit(const CoinsState.loading());
     try {
-      var coinList = await coinsRepository.getCoins();
+      final coinList = await coinsRepository.getCoins();
       emit(CoinsState.loaded(coinList));
     } catch (e) {
       emit(const CoinsState.error());

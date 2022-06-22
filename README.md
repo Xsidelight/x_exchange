@@ -19,7 +19,7 @@ Personal Flutter project for the testing assignment for M10.
 
 ## Project folder structure
 
-- Project uses BloC architecture which separates it into three main layers `data`, `presentation`, and `logic`. 
+- Project uses Clean Architecture which separates it into three main layers `data`, `domain`, and `features`. 
 
 ## State Management 
 

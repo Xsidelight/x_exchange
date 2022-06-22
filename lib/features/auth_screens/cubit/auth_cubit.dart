@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:x_exchange/data/local_repository/hive_storage.dart';
-import '../../../../../data/models/user.dart';
+import 'package:x_exchange/data/models/user.dart';
 
 part 'auth_state.dart';
 part 'auth_cubit.freezed.dart';
@@ -42,7 +42,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void autoLogin() {
-    var savedUser = _hiveStorage.getUserCredentials();
+    final savedUser = _hiveStorage.getUserCredentials();
 
     if (savedUser == null) {
       emit(const AuthState.authFailed(message: 'No user found'));
