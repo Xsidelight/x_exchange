@@ -1,5 +1,18 @@
 # X Exchange
 
+## How to run the project
+
+- Before the running we should enter in terminal:
+
+```Terminal
+    ./codegen.sh
+```
+
+- After generating all files we can either launch the project from IDE or go to project directory and execute:
+
+```Terminal
+    flutter run
+```
 ## Description
 
 Personal Flutter project for the testing assignment for M10. 
