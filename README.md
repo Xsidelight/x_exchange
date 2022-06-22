@@ -19,7 +19,7 @@ Personal Flutter project for the testing assignment for M10.
 
 ## Project folder structure
 
-- Project uses Clean Architecture which separates it into three main layers `data`, `domain`, and `features`. 
+- Project uses Clean Architecture which separates it into three main layers `data`, `domain`, and `presentation`. 
 
 ## State Management 
 
