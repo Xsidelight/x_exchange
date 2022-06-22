@@ -3,5 +3,3 @@ class HiveConstants {
   static const userCredBox = 'userCredBox';
   static const userCredentials = 'userCredentials';
 }
-
-enum NavBarItem { home, userCredentials }

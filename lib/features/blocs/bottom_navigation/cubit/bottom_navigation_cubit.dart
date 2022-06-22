@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:x_exchange/core/constants.dart';
+import 'package:x_exchange/domain/constants/enums.dart';
 
 part 'bottom_navigation_state.dart';
 part 'bottom_navigation_cubit.freezed.dart';

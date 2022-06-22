@@ -5,7 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'app/app.dart';
-import 'core/constants.dart';
+import 'domain/constants/constants.dart';
 import 'data/models/user.dart';
 
 void main() async {

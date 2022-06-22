@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../logic/user_cubit/cubit/user_cubit.dart';
+import 'package:x_exchange/features/user_screen/user_cubit/cubit/user_cubit.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({Key? key}) : super(key: key);

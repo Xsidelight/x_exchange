@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../core/router/app_router.dart';
-import '../data/repository/coins_repository.dart';
-import '../logic/auth/cubit/auth_cubit.dart';
-import '../logic/bottom_navigation/cubit/bottom_navigation_cubit.dart';
-import '../logic/coins_cubit/cubit/coins_cubit.dart';
+import 'package:x_exchange/data/repository/coins_repository.dart';
+import 'package:x_exchange/domain/router/app_router.dart';
+import 'package:x_exchange/features/auth_screens/cubit/auth_cubit.dart';
+import 'package:x_exchange/features/blocs/bottom_navigation/cubit/bottom_navigation_cubit.dart';
+import 'package:x_exchange/features/coins_screen/cubit/coins_cubit.dart';
 
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);

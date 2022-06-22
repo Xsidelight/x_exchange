@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../core/constants.dart';
+import '../../domain/constants/constants.dart';
 import '../models/user.dart';
 
 class HiveStorage {
