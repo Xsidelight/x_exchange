@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:x_exchange/domain/router/route_paths.dart';
+import 'package:x_exchange/features/auth_screens/cubit/auth_cubit.dart';
 import 'package:x_exchange/features/user_screen/user_cubit/cubit/user_cubit.dart';
 
 class UserScreen extends StatelessWidget {
@@ -23,6 +26,16 @@ class UserScreen extends StatelessWidget {
                   Text(user.name),
                   Text(
                     user.createdAt.toIso8601String(),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<AuthCubit>().clearUserCredBox();
+                      context.go(RoutePaths.loginScreen);
+                    },
+                    child: const Text('Delete User'),
                   ),
                 ],
               ),

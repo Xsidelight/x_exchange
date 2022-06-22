@@ -13,81 +13,85 @@ class RegistrationScreen extends StatelessWidget {
   final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Registration'),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter your name',
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        state.whenOrNull(authSuccessful: () => context.go(RoutePaths.homeScreen));
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Registration'),
+        ),
+        body: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 10,
                 ),
-                controller: _nameController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter your email',
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter your name',
+                  ),
+                  controller: _nameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
                 ),
-                controller: _emailController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter valid email';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter your password',
+                const SizedBox(
+                  height: 10,
                 ),
-                controller: _passwordController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    context.read<AuthCubit>().registration(
-                          userName: _nameController.text.trim(),
-                          userEmail: _emailController.text.trim(),
-                          userPassword: _passwordController.text.trim(),
-                        );
-                    context.go(RoutePaths.loginScreen);
-                  }
-                },
-                child: const Text('Sign Up'),
-              ),
-            ],
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter your email',
+                  ),
+                  controller: _emailController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter valid email';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter your password',
+                  ),
+                  controller: _passwordController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      context.read<AuthCubit>().registration(
+                            userName: _nameController.text.trim(),
+                            userEmail: _emailController.text.trim(),
+                            userPassword: _passwordController.text.trim(),
+                          );
+                    }
+                  },
+                  child: const Text('Sign Up'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

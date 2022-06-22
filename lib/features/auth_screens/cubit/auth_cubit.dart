@@ -39,6 +39,8 @@ class AuthCubit extends Cubit<AuthState> {
       createdAt: DateTime.now(),
     );
     _hiveStorage.putUserCredentials(user);
+
+    emit(const AuthState.authSuccessful());
   }
 
   void autoLogin() {
@@ -51,7 +53,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void logout() {
+  void clearUserCredBox() {
     _hiveStorage.clearBox();
   }
 }
