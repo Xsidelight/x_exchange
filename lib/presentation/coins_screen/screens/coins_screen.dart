@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:x_exchange/features/coins_screen/cubit/coins_cubit.dart';
+import 'package:x_exchange/presentation/coins_screen/cubit/coins_cubit.dart';
+
 
 class CoinsScreen extends StatelessWidget {
   const CoinsScreen({Key? key}) : super(key: key);

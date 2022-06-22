@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:x_exchange/features/auth_screens/cubit/auth_cubit.dart';
-import 'package:x_exchange/features/screens.dart';
+import 'package:x_exchange/presentation/auth_screens/cubit/auth_cubit.dart';
+import 'package:x_exchange/presentation/screens.dart';
 
 import 'route_paths.dart';
 

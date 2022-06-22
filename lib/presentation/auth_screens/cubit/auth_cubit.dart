@@ -1,30 +1,29 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:x_exchange/data/local_repository/hive_storage.dart';
+import 'package:x_exchange/data/local_repository/hive_repository_impl.dart';
 import 'package:x_exchange/data/models/user.dart';
 
 part 'auth_state.dart';
 part 'auth_cubit.freezed.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(const AuthState.initial()) {
+  AuthCubit(this.hiveRepositoryImpl) : super(const AuthState.initial()) {
     autoLogin();
   }
 
-  final _hiveStorage = HiveStorage();
+  final HiveRepositoryImpl hiveRepositoryImpl;
 
-  void login({required String email, required String password}) {
-    User? savedUser = _hiveStorage.getUserCredentials();
+  void login({required String email, required String password}) async {
+    User? savedUser = hiveRepositoryImpl.getUserCredentials();
 
     if (savedUser == null) {
       emit(const AuthState.authFailed(message: 'Failed To Login!'));
-      print('sdfsddsfdds');
       return;
     }
 
     if (email == savedUser.email && password == savedUser.password) {
       savedUser.isLoggedIn = true;
-      _hiveStorage.putUserCredentials(savedUser);
+      await hiveRepositoryImpl.putUserCredentials(user: savedUser);
       emit(const AuthState.authSuccessful());
     } else {
       emit(const AuthState.authFailed(message: 'Failed To Login!'));
@@ -35,7 +34,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String userName,
     required String userEmail,
     required String userPassword,
-  }) {
+  }) async {
     final user = User(
       name: userName,
       email: userEmail,
@@ -43,13 +42,13 @@ class AuthCubit extends Cubit<AuthState> {
       createdAt: DateTime.now(),
       isLoggedIn: true,
     );
-    _hiveStorage.putUserCredentials(user);
+    await hiveRepositoryImpl.putUserCredentials(user: user);
 
     emit(const AuthState.authSuccessful());
   }
 
-  void autoLogin() {
-    final savedUser = _hiveStorage.getUserCredentials();
+  void autoLogin() async {
+    final savedUser = hiveRepositoryImpl.getUserCredentials();
 
     if (savedUser != null && savedUser.isLoggedIn == true) {
       emit(const AuthState.authSuccessful());
@@ -59,17 +58,16 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void clearUserCredBox() {
-    _hiveStorage.clearBox();
+    hiveRepositoryImpl.clearUserCredBox();
     emit(const AuthState.logout());
   }
 
-  void logout() {
-    final savedUser = _hiveStorage.getUserCredentials();
+  void logout() async {
+    final savedUser = hiveRepositoryImpl.getUserCredentials();
 
     if (savedUser!.isLoggedIn) {
-      print('Here');
       savedUser.isLoggedIn = false;
-      _hiveStorage.putUserCredentials(savedUser);
+      hiveRepositoryImpl.putUserCredentials(user: savedUser);
       emit(const AuthState.logout());
     }
   }

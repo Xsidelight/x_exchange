@@ -9,6 +9,11 @@ import 'domain/constants/constants.dart';
 import 'data/models/user.dart';
 
 void main() async {
+  await initHive();
+  runApp(App());
+}
+
+Future<void> initHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   const secureStorage = FlutterSecureStorage();
@@ -25,6 +30,4 @@ void main() async {
   final encryptionKey = base64Url.decode(key!);
 
   await Hive.openBox(HiveConstants.userCredBox, encryptionCipher: HiveAesCipher(encryptionKey));
-
-  runApp(App());
 }
