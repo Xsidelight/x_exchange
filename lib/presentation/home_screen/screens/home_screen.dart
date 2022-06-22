@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:x_exchange/domain/constants/enums.dart';
 import 'package:x_exchange/domain/router/route_paths.dart';
 import 'package:x_exchange/presentation/auth_screens/cubit/auth_cubit.dart';
-import 'package:x_exchange/presentation/blocs/bottom_navigation/cubit/bottom_navigation_cubit.dart';
+import 'package:x_exchange/presentation/home_screen/cubit/bottom_navigation_cubit.dart';
 import 'package:x_exchange/presentation/screens.dart';
 
 class HomeScreen extends StatelessWidget {
