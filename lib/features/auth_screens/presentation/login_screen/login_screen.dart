@@ -15,11 +15,16 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        state.whenOrNull(authSuccessful: () => context.go(RoutePaths.homeScreen));
         state.whenOrNull(
-          authFailed: (message) => ScaffoldMessenger(
-            child: SnackBar(
+          authSuccessful: () => context.go(RoutePaths.homeScreen),
+          authFailed: (message) => ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
               content: Text(message),
+              duration: const Duration(seconds: 1),
+              action: SnackBarAction(
+                label: 'Ok',
+                onPressed: () => context.pop(),
+              ),
             ),
           ),
         );

@@ -18,9 +18,13 @@ class AuthCubit extends Cubit<AuthState> {
 
     if (savedUser == null) {
       emit(const AuthState.authFailed(message: 'Failed To Login!'));
+      print('sdfsddsfdds');
+      return;
     }
 
-    if (email == savedUser!.email && password == savedUser.password) {
+    if (email == savedUser.email && password == savedUser.password) {
+      savedUser.isLoggedIn = true;
+      _hiveStorage.putUserCredentials(savedUser);
       emit(const AuthState.authSuccessful());
     } else {
       emit(const AuthState.authFailed(message: 'Failed To Login!'));
@@ -37,6 +41,7 @@ class AuthCubit extends Cubit<AuthState> {
       email: userEmail,
       password: userPassword,
       createdAt: DateTime.now(),
+      isLoggedIn: true,
     );
     _hiveStorage.putUserCredentials(user);
 
@@ -46,14 +51,26 @@ class AuthCubit extends Cubit<AuthState> {
   void autoLogin() {
     final savedUser = _hiveStorage.getUserCredentials();
 
-    if (savedUser == null) {
-      emit(const AuthState.authFailed(message: 'No user found'));
-    } else {
+    if (savedUser != null && savedUser.isLoggedIn == true) {
       emit(const AuthState.authSuccessful());
+    } else {
+      emit(const AuthState.authFailed(message: 'No user found'));
     }
   }
 
   void clearUserCredBox() {
     _hiveStorage.clearBox();
+    emit(const AuthState.logout());
+  }
+
+  void logout() {
+    final savedUser = _hiveStorage.getUserCredentials();
+
+    if (savedUser!.isLoggedIn) {
+      print('Here');
+      savedUser.isLoggedIn = false;
+      _hiveStorage.putUserCredentials(savedUser);
+      emit(const AuthState.logout());
+    }
   }
 }

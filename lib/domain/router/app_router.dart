@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:x_exchange/features/auth_screens/cubit/auth_cubit.dart';
 import 'package:x_exchange/features/screens.dart';
 
-
 import 'route_paths.dart';
 
 class AppRouter {
@@ -38,6 +37,7 @@ class _HomeRouteBuilder extends StatelessWidget {
         initial: () => LoginScreen(),
         authSuccessful: () => HomeScreen(),
         authFailed: (_) => LoginScreen(),
+        logout: () => LoginScreen(),
       ),
     );
   }

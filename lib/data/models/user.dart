@@ -6,7 +6,7 @@ part 'user.g.dart';
 class User extends HiveObject {
   @HiveField(0)
   final String name;
-  
+
   @HiveField(1)
   final String email;
 
@@ -16,10 +16,14 @@ class User extends HiveObject {
   @HiveField(3)
   final DateTime createdAt;
 
+  @HiveField(4)
+  bool isLoggedIn;
+
   User({
     required this.name,
     required this.email,
     required this.password,
     required this.createdAt,
+    required this.isLoggedIn,
   });
 }
